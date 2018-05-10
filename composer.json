@@ -1,0 +1,34 @@
+{
+    "name": "taylornetwork/server-connector",
+    "require": {
+        "symfony/console": "^4.0",
+        "php": ">=7.0.0",
+        "adbario/php-dot-notation": "^2.0"
+    },
+    "require-dev": {
+        "psy/psysh": "@stable"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Taylor",
+            "email": "sam@taylornetwork.ca"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TaylorNetwork\\Console\\ServerConnector\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "TaylorNetwork\\Console\\ServerConnector\\Config::publish"
+        ],
+        "post-package-install": [
+            "TaylorNetwork\\Console\\ServerConnector\\Config::publish"
+        ]
+    },
+    "bin": [
+        "server-connector"
+    ]
+}

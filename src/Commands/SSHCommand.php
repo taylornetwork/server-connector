@@ -35,6 +35,11 @@ class SSHCommand extends Command
             $output->writeln('Connecting to '.$connection['url'].'...');
             $this->ssh = new SSH();
             $this->ssh->setURL($connection['url'])->setCredentials($connection['credentials']);
+
+            if(isset($connection['keyFile'])) {
+                $this->ssh->setKeyFile($connection['keyFile']);
+            }
+
             $this->ssh->connect();
         } else {
             $output->writeln($input->getArgument('name').' not found.');

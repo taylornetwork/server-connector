@@ -29,6 +29,11 @@ class SFTPCommand extends Command
             $output->writeln('Connecting to '.$connection['url'].'...');
             $this->sftp = new SFTP();
             $this->sftp->setURL($connection['url'])->setCredentials($connection['credentials']);
+
+            if(isset($connection['keyFile'])) {
+                $this->sftp->setKeyFile($connection['keyFile']);
+            }
+
             $this->sftp->connect();
         } else {
             $output->writeln($input->getArgument('name').' not found.');

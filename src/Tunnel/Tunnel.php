@@ -28,6 +28,13 @@ class Tunnel
     public $action;
 
     /**
+     * Key file
+     *
+     * @var string
+     */
+    public $keyFile = null;
+
+    /**
      * Tunnel constructor.
      *
      * @param string $url
@@ -72,6 +79,13 @@ class Tunnel
         return $this;
     }
 
+    public function setKeyFile($keyFile)
+    {
+        $this->keyFile = $keyFile;
+
+        return $this;
+    }
+
     /**
      * Build the command.
      *
@@ -80,6 +94,10 @@ class Tunnel
     public function buildCommand()
     {
         $command = $this->action.' ';
+
+        if ($this->keyFile) {
+           $command .= '-i '.$this->keyFile.' ';
+        }
 
         if (isset($this->credentials['username'])) {
             $command .= $this->credentials['username'];

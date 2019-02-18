@@ -16,6 +16,9 @@ return [
             'password' => 'password1',
         ],
 
+        // Omit to use default or you can set the path to a private key
+        'keyFile' => '~/.ssh/id_rsa',
+
         // URL or IP address to connect to
         'url' => 'connect.example.com',
     ],

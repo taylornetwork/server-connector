@@ -28,7 +28,7 @@ class Tunnel
     public $action;
 
     /**
-     * Key file
+     * Key file.
      *
      * @var string
      */
@@ -96,7 +96,7 @@ class Tunnel
         $command = $this->action.' ';
 
         if ($this->keyFile) {
-           $command .= '-i '.$this->keyFile.' ';
+            $command .= '-i '.$this->keyFile.' ';
         }
 
         if (isset($this->credentials['username'])) {

@@ -36,7 +36,7 @@ class SSHCommand extends Command
             $this->ssh = new SSH();
             $this->ssh->setURL($connection['url'])->setCredentials($connection['credentials']);
 
-            if(isset($connection['keyFile'])) {
+            if (isset($connection['keyFile'])) {
                 $this->ssh->setKeyFile($connection['keyFile']);
             }
 

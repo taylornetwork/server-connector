@@ -30,7 +30,7 @@ class SFTPCommand extends Command
             $this->sftp = new SFTP();
             $this->sftp->setURL($connection['url'])->setCredentials($connection['credentials']);
 
-            if(isset($connection['keyFile'])) {
+            if (isset($connection['keyFile'])) {
                 $this->sftp->setKeyFile($connection['keyFile']);
             }
 

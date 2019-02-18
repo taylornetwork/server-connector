@@ -5,7 +5,7 @@ namespace TaylorNetwork\Console\ServerConnector\Tunnel;
 class SFTP extends Tunnel
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-	public $action = 'sftp';
+    public $action = 'sftp';
 }

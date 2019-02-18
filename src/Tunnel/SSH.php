@@ -5,7 +5,7 @@ namespace TaylorNetwork\Console\ServerConnector\Tunnel;
 class SSH extends Tunnel
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-	public $action = 'ssh';
+    public $action = 'ssh';
 }

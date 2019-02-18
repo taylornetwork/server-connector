@@ -22,7 +22,7 @@ class Config
     }
 
     /**
-     * Get all config
+     * Get all config.
      *
      * @return array
      */
@@ -32,66 +32,65 @@ class Config
     }
 
     /**
-     * Get by key using array dot notation
+     * Get by key using array dot notation.
      *
      * This will also search for aliases
      *
      * @param string $key
+     *
      * @return mixed
      */
     public function get($key)
     {
-        if($value = $this->config->get($key)) {
+        if ($value = $this->config->get($key)) {
             return $value;
         }
 
         // If we can't find the value of the key, double check by recursively searching as an alias
         $explodedKey = explode('.', $key);
 
-        while(!$this->config->get(implode('.', $explodedKey))) {
+        while (!$this->config->get(implode('.', $explodedKey))) {
             unset($explodedKey[count($explodedKey) - 1]);
-            if($explodedKey === []) {
-                return null;
+            if ($explodedKey === []) {
+                return;
             }
         }
 
         $parent = implode('.', $explodedKey);
         $alias = explode('.', str_replace($parent.'.', '', $key))[0];
 
-        if($results = $this->searchByAlias($parent, $alias)) {
-            if($parent.'.'.$alias === $key) {
+        if ($results = $this->searchByAlias($parent, $alias)) {
+            if ($parent.'.'.$alias === $key) {
                 return $results;
             }
+
             return (new Dot($results))->get(str_replace($parent.'.'.$alias.'.', '', $key));
         }
-
-        return null;
     }
 
     /**
-     * See if a parent key has an alias key
+     * See if a parent key has an alias key.
      *
      * @param string $parent
      * @param string $alias
+     *
      * @return mixed
      */
     public function searchByAlias($parent, $alias)
     {
         $parent = $this->config->get($parent);
 
-        if(gettype($parent) === 'array') {
-            foreach($parent as $key => $item) {
-                if(gettype($item) === 'array' && array_key_exists('aliases', $item) && in_array($alias, $item['aliases'])) {
+        if (gettype($parent) === 'array') {
+            foreach ($parent as $key => $item) {
+                if (gettype($item) === 'array' && array_key_exists('aliases', $item) && in_array($alias, $item['aliases'])) {
                     return $item;
                 }
             }
         }
-
-        return null;
     }
 
     /**
-     * Return the config Adbar\Dot object
+     * Return the config Adbar\Dot object.
      *
      * @return Dot
      */
@@ -104,7 +103,7 @@ class Config
     {
         $destination = self::getLocalConfigPath();
 
-        if(!file_exists($destination)) {
+        if (!file_exists($destination)) {
             mkdir($destination, 0777, true);
         }
 

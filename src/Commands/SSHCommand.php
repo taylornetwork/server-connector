@@ -2,11 +2,11 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Commands;
 
-use TaylorNetwork\Console\ServerConnector\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TaylorNetwork\Console\ServerConnector\Config;
 use TaylorNetwork\Console\ServerConnector\Tunnel\SSH;
 
 class SSHCommand extends Command
@@ -23,7 +23,7 @@ class SSHCommand extends Command
 
     protected function configure()
     {
-        $this->config = new Config;
+        $this->config = new Config();
         $this->setName('connect:ssh');
         $this->setDescription('Connect via SSH to a defined connection');
         $this->addArgument('name', InputArgument::REQUIRED);
@@ -31,14 +31,13 @@ class SSHCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if($connection = $this->config->get('connections.'.$input->getArgument('name'))) {
-            $output->writeln('Connecting to ' . $connection['url'] . '...');
-            $this->ssh = new SSH;
+        if ($connection = $this->config->get('connections.'.$input->getArgument('name'))) {
+            $output->writeln('Connecting to '.$connection['url'].'...');
+            $this->ssh = new SSH();
             $this->ssh->setURL($connection['url'])->setCredentials($connection['credentials']);
             $this->ssh->connect();
         } else {
-            $output->writeln($input->getArgument('name') . ' not found.');
+            $output->writeln($input->getArgument('name').' not found.');
         }
     }
-
 }

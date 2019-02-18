@@ -2,12 +2,11 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Commands;
 
-
-use TaylorNetwork\Console\ServerConnector\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use TaylorNetwork\Console\ServerConnector\Config;
 
 class HelpConnectCommand extends Command
 {
@@ -47,16 +46,15 @@ class HelpConnectCommand extends Command
 
         $io->section('Available Connections');
 
-        $connections = (new Config)->get('connections');
+        $connections = (new Config())->get('connections');
 
         $cells = [];
-        foreach($connections as $name => $connection) {
-            $cells[] = [ $name, $connection['url'], implode(', ', $connection['aliases']) ];
+        foreach ($connections as $name => $connection) {
+            $cells[] = [$name, $connection['url'], implode(', ', $connection['aliases'])];
         }
 
-        $io->table([ 'Connection Name', 'URL', 'Aliases' ], $cells);
+        $io->table(['Connection Name', 'URL', 'Aliases'], $cells);
 
-        $io->text('Connections are stored in ' . getenv('HOME').'/ServerConnector/config/connections.php');
+        $io->text('Connections are stored in '.getenv('HOME').'/ServerConnector/config/connections.php');
     }
-
 }

@@ -6,7 +6,7 @@ return [
     'example' => [
 
         // Add any short aliases to access this as
-        'aliases' => [ 'ex', 'e' ],
+        'aliases' => ['ex', 'e'],
 
         // Add credentials here, or an empty array
         'credentials' => [

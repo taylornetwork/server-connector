@@ -2,7 +2,6 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Commands;
 
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,16 +22,15 @@ class ConfigPublishCommand extends Command
 
         $publish = true;
 
-        if(file_exists(Config::getLocalConfigPath().'/connections.php')) {
+        if (file_exists(Config::getLocalConfigPath().'/connections.php')) {
             $publish = $io->confirm('Looks like config has already been published, overwrite existing config?', false);
         }
 
-        if($publish) {
+        if ($publish) {
             Config::publish();
-            $io->success('Config published successfully to ' . Config::getLocalConfigPath());
+            $io->success('Config published successfully to '.Config::getLocalConfigPath());
         } else {
             $io->text('<comment>Publish Cancelled!</comment>');
         }
     }
-
 }

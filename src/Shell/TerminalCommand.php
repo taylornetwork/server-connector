@@ -5,7 +5,7 @@ namespace TaylorNetwork\Console\ServerConnector\Shell;
 class TerminalCommand
 {
     /**
-     * Command to run
+     * Command to run.
      *
      * @var string
      */
@@ -14,14 +14,14 @@ class TerminalCommand
     /**
      * TerminalCommand constructor.
      *
-     * @param string  $command
-     * @param bool $defer
+     * @param string $command
+     * @param bool   $defer
      */
     public function __construct($command, $defer = false)
     {
         $this->command = $command;
 
-        if(!$defer) {
+        if (!$defer) {
             $this->execute();
         }
     }
@@ -37,11 +37,11 @@ class TerminalCommand
     }
 
     /**
-     * Execute the command
+     * Execute the command.
      */
     public function execute()
     {
-        if($this->is_cli()) {
+        if ($this->is_cli()) {
             return $this->executePassthru();
         }
 
@@ -49,7 +49,7 @@ class TerminalCommand
     }
 
     /**
-     * Execute as a Shell Command
+     * Execute as a Shell Command.
      *
      * @return ShellCommand
      */
@@ -59,20 +59,22 @@ class TerminalCommand
     }
 
     /**
-     * Execute a passthru command
+     * Execute a passthru command.
      *
      * @return mixed
      */
     public function executePassthru()
     {
         passthru($this->command, $return);
+
         return $return;
     }
 
     /**
-     * Get a property
+     * Get a property.
      *
-     * @param string  $property
+     * @param string $property
+     *
      * @return mixed
      */
     public function __get($property)

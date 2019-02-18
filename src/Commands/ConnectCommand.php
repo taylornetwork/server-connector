@@ -2,13 +2,12 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Commands;
 
-
-use TaylorNetwork\Console\ServerConnector\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TaylorNetwork\Console\ServerConnector\Config;
 
 class ConnectCommand extends Command
 {
@@ -19,7 +18,7 @@ class ConnectCommand extends Command
 
     protected function configure()
     {
-        $this->config = new Config;
+        $this->config = new Config();
         $this->setName('connect');
         $this->setDescription('Connect to a defined connection');
         $this->addArgument('name_type', InputArgument::REQUIRED, 'Connection type or name.');
@@ -31,16 +30,15 @@ class ConnectCommand extends Command
         $nameOrType = $input->getArgument('name_type');
         $name = $input->getArgument('name');
 
-        if($name) {
+        if ($name) {
             $type = $nameOrType;
         } else {
             $name = $nameOrType;
             $type = $this->config->get('defaults.type');
         }
 
-        $command = $this->getApplication()->find('connect:' . strtolower($type));
+        $command = $this->getApplication()->find('connect:'.strtolower($type));
 
-        return $command->run(new ArrayInput([ 'command' => 'connect:' . strtolower($type), 'name' => $name ]), $output);
+        return $command->run(new ArrayInput(['command' => 'connect:'.strtolower($type), 'name' => $name]), $output);
     }
-
 }

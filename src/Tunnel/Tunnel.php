@@ -7,96 +7,100 @@ use TaylorNetwork\Console\ServerConnector\Shell\TerminalCommand;
 class Tunnel
 {
     /**
-     * Connection Credentials
+     * Connection Credentials.
      *
      * @var array
      */
-	public $credentials = [];
+    public $credentials = [];
 
     /**
-     * Base URL
+     * Base URL.
      *
      * @var string
      */
-	public $url;
+    public $url;
 
     /**
-     * Command Action
+     * Command Action.
      *
      * @var string
      */
-	public $action;
+    public $action;
 
     /**
      * Tunnel constructor.
      *
-     * @param string  $url
+     * @param string $url
      * @param array  $credentials
      */
-	public function __construct($url = null, $credentials = [])
-	{
-		if($url !== null) {
-		    $this->url = $url;
+    public function __construct($url = null, $credentials = [])
+    {
+        if ($url !== null) {
+            $this->url = $url;
         }
 
-        if(!empty($credentials)) {
-		    $this->setCredentials($credentials);
+        if (!empty($credentials)) {
+            $this->setCredentials($credentials);
         }
-	}
+    }
 
     /**
-     * Set URL
+     * Set URL.
      *
-     * @param string  $url
+     * @param string $url
+     *
      * @return $this
      */
-	public function setURL($url)
+    public function setURL($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
     /**
-     * Set Credentials
+     * Set Credentials.
      *
-     * @param array  $credentials
+     * @param array $credentials
+     *
      * @return $this
      */
-	public function setCredentials($credentials)
-	{
-		$this->credentials = $credentials;
-		return $this;
-	}
+    public function setCredentials($credentials)
+    {
+        $this->credentials = $credentials;
+
+        return $this;
+    }
 
     /**
-     * Build the command
+     * Build the command.
      *
      * @return string
      */
-	public function buildCommand()
-	{
-		$command = $this->action . ' ';
+    public function buildCommand()
+    {
+        $command = $this->action.' ';
 
-		if(isset($this->credentials['username'])) {
-			$command .= $this->credentials['username'];
-			if(isset($this->credentials['password'])) {
-				$command .= ':' . $this->credentials['password'];
-			}
-			$command .= '@';
-		}
+        if (isset($this->credentials['username'])) {
+            $command .= $this->credentials['username'];
+            if (isset($this->credentials['password'])) {
+                $command .= ':'.$this->credentials['password'];
+            }
+            $command .= '@';
+        }
 
-		$command .= $this->url;
+        $command .= $this->url;
 
-		return $command;
-	}
+        return $command;
+    }
 
     /**
-     * Connect the Tunnel
+     * Connect the Tunnel.
      *
      * @return TerminalCommand
      */
-	public function connect()
-	{
-	    return new TerminalCommand($this->buildCommand());
-	}
+    public function connect()
+    {
+        return new TerminalCommand($this->buildCommand());
+    }
 }

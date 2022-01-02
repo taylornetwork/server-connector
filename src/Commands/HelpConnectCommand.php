@@ -28,8 +28,8 @@ class HelpConnectCommand extends Command
 
         $io->text(['connect']);
         $io->listing([
-             'server-connector connect <name>         - Connect to the <name> connection using the default connection type.',
-             'server-connector connect <type> <name>  - Connect to the <name> connection using the <type> connection type.',
+            'server-connector connect <name>         - Connect to the <name> connection using the default connection type.',
+            'server-connector connect <type> <name>  - Connect to the <name> connection using the <type> connection type.',
         ]);
 
         $io->text('connect:ssh');

@@ -62,17 +62,18 @@ class Tunnel
      * New instance from config item.
      *
      * @param array $config
+     *
      * @return static
      */
     public static function newFromConfig($config)
     {
         $tunnel = new static($config['url'], $config['credentials']);
 
-        if(isset($config['port'])) {
+        if (isset($config['port'])) {
             $tunnel->setPort($config['port']);
         }
 
-        if(isset($config['keyFile'])) {
+        if (isset($config['keyFile'])) {
             $tunnel->setKeyFile($config['keyFile']);
         }
 
@@ -97,6 +98,7 @@ class Tunnel
      * Set the port.
      *
      * @param int $port
+     *
      * @return $this
      */
     public function setPort($port)

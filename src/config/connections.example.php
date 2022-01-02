@@ -19,6 +19,9 @@ return [
         // Omit to use default or you can set the path to a private key
         'keyFile' => '~/.ssh/id_rsa',
 
+        // Omit to use 22 by default or can set here
+        'port' => 22,
+
         // URL or IP address to connect to
         'url' => 'connect.example.com',
     ],

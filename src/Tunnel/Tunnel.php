@@ -35,6 +35,13 @@ class Tunnel
     public $keyFile = null;
 
     /**
+     * Port.
+     *
+     * @var int
+     */
+    public $port = 22;
+
+    /**
      * Tunnel constructor.
      *
      * @param string $url
@@ -52,6 +59,27 @@ class Tunnel
     }
 
     /**
+     * New instance from config item.
+     *
+     * @param array $config
+     * @return static
+     */
+    public static function newFromConfig($config)
+    {
+        $tunnel = new static($config['url'], $config['credentials']);
+
+        if(isset($config['port'])) {
+            $tunnel->setPort($config['port']);
+        }
+
+        if(isset($config['keyFile'])) {
+            $tunnel->setKeyFile($config['keyFile']);
+        }
+
+        return $tunnel;
+    }
+
+    /**
      * Set URL.
      *
      * @param string $url
@@ -61,6 +89,19 @@ class Tunnel
     public function setURL($url)
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Set the port.
+     *
+     * @param int $port
+     * @return $this
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
 
         return $this;
     }
@@ -93,7 +134,7 @@ class Tunnel
      */
     public function buildCommand()
     {
-        $command = $this->action.' ';
+        $command = $this->action.' -p '.$this->port.' ';
 
         if ($this->keyFile) {
             $command .= '-i '.$this->keyFile.' ';

@@ -107,6 +107,16 @@ class Tunnel
     }
 
     /**
+     * Get the port.
+     *
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
      * Set Credentials.
      *
      * @param array $credentials

@@ -32,8 +32,8 @@ class SSHCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if ($connection = $this->config->get('connections.'.$input->getArgument('name'))) {
-            $output->writeln('Connecting to '.$connection['url'].'...');
             $this->ssh = SSH::newFromConfig($connection);
+            $output->writeln('Attempting to connect to '.$connection['url'].' on port '.$this->ssh->getPort().'...');
             $this->ssh->connect();
         } else {
             $output->writeln($input->getArgument('name').' not found.');

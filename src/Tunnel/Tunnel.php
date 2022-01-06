@@ -7,12 +7,12 @@ use TaylorNetwork\Console\ServerConnector\Shell\TerminalCommand;
 class Tunnel
 {
     /**
-     * Use a specific port argument
+     * Use a specific port argument.
      */
     const ARG_PORT = '-p';
 
     /**
-     * Use a specific key file argument
+     * Use a specific key file argument.
      */
     const ARG_KEY_FILE = '-i';
 
@@ -156,10 +156,10 @@ class Tunnel
      */
     public function buildCommand()
     {
-        $command = $this->action.' '. static::ARG_PORT .' '.$this->port.' ';
+        $command = $this->action.' '.static::ARG_PORT.' '.$this->port.' ';
 
         if ($this->keyFile) {
-            $command .= static::ARG_KEY_FILE .' '.$this->keyFile.' ';
+            $command .= static::ARG_KEY_FILE.' '.$this->keyFile.' ';
         }
 
         if (isset($this->credentials['username'])) {

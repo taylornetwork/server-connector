@@ -2,23 +2,24 @@
 
 namespace TaylorNetwork\Console\ServerConnector;
 
-use Pharaonic\DotArray\DotArray;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class Config
 {
     const LOCAL_CONFIG_PATH = '{HOME}/ServerConnector/config';
 
     /**
-     * @var DotArray
+     * @var Collection
      */
-    protected DotArray $config;
+    protected Collection $config;
 
     /**
      * Config constructor.
      */
     public function __construct()
     {
-        $this->config = new DotArray(include __DIR__.'/config/config.php');
+        $this->config = collect(include __DIR__.'/config/config.php');
     }
 
     /**
@@ -42,17 +43,17 @@ class Config
      */
     public function get(string $key)
     {
-        if ($value = $this->config->get($key)) {
+        if ($value = Arr::get($this->config, $key)) {
             return $value;
         }
 
         // If we can't find the value of the key, double check by recursively searching as an alias
         $explodedKey = explode('.', $key);
 
-        while (!$this->config->get(implode('.', $explodedKey))) {
+        while (!Arr::get($this->config, implode('.', $explodedKey))) {
             unset($explodedKey[count($explodedKey) - 1]);
             if ($explodedKey === []) {
-                return;
+                return null;
             }
         }
 
@@ -64,8 +65,10 @@ class Config
                 return $results;
             }
 
-            return (new DotArray($results))->get(str_replace($parent.'.'.$alias.'.', '', $key));
+            return Arr::get($results, str_replace($parent.'.'.$alias.'.', '', $key));
         }
+
+        return null;
     }
 
     /**
@@ -78,7 +81,7 @@ class Config
      */
     public function searchByAlias(string $parent, string $alias)
     {
-        $parent = $this->config->get($parent);
+        $parent = Arr::get($this->config, $parent);
 
         if (gettype($parent) === 'array') {
             foreach ($parent as $key => $item) {
@@ -92,11 +95,11 @@ class Config
     }
 
     /**
-     * Return the config DotArray object.
+     * Return the config Collection object.
      *
-     * @return DotArray
+     * @return Collection
      */
-    public function config(): DotArray
+    public function config(): Collection
     {
         return $this->config;
     }

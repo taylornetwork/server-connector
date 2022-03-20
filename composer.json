@@ -3,7 +3,7 @@
     "require": {
         "symfony/console": "^4.0",
         "php": "^7.4|^8.0",
-        "pharaonic/php-dot-array": "^1.0"
+        "illuminate/support": "^9.5"
     },
     "require-dev": {
         "psy/psysh": "@stable"

@@ -7,5 +7,5 @@ class SSH extends Tunnel
     /**
      * {@inheritdoc}
      */
-    public $action = 'ssh';
+    public string $action = 'ssh';
 }

@@ -2,30 +2,8 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Shell;
 
-class TerminalCommand
+class TerminalCommand extends Command
 {
-    /**
-     * Command to run.
-     *
-     * @var string
-     */
-    protected $command;
-
-    /**
-     * TerminalCommand constructor.
-     *
-     * @param string $command
-     * @param bool   $defer
-     */
-    public function __construct($command, $defer = false)
-    {
-        $this->command = $command;
-
-        if (!$defer) {
-            $this->execute();
-        }
-    }
-
     /**
      * Is this running from command line?
      *
@@ -68,17 +46,5 @@ class TerminalCommand
         passthru($this->command, $return);
 
         return $return;
-    }
-
-    /**
-     * Get a property.
-     *
-     * @param string $property
-     *
-     * @return mixed
-     */
-    public function __get($property)
-    {
-        return $this->$property;
     }
 }

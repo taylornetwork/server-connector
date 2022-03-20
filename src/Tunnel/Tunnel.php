@@ -21,43 +21,43 @@ class Tunnel
      *
      * @var array
      */
-    public $credentials = [];
+    public array $credentials = [];
 
     /**
      * Base URL.
      *
      * @var string
      */
-    public $url;
+    public string $url;
 
     /**
      * Command Action.
      *
      * @var string
      */
-    public $action;
+    public string $action;
 
     /**
      * Key file.
      *
-     * @var string
+     * @var string|null
      */
-    public $keyFile = null;
+    public ?string $keyFile = null;
 
     /**
      * Port.
      *
      * @var int
      */
-    public $port = 22;
+    public int $port = 22;
 
     /**
      * Tunnel constructor.
      *
-     * @param string $url
+     * @param string|null $url
      * @param array  $credentials
      */
-    public function __construct($url = null, $credentials = [])
+    public function __construct(?string $url = null, array $credentials = [])
     {
         if ($url !== null) {
             $this->url = $url;
@@ -75,7 +75,7 @@ class Tunnel
      *
      * @return static
      */
-    public static function newFromConfig($config)
+    public static function newFromConfig(array $config): Tunnel
     {
         $tunnel = new static($config['url'], $config['credentials']);
 
@@ -97,7 +97,7 @@ class Tunnel
      *
      * @return $this
      */
-    public function setURL($url)
+    public function setURL(string $url): Tunnel
     {
         $this->url = $url;
 
@@ -111,7 +111,7 @@ class Tunnel
      *
      * @return $this
      */
-    public function setPort($port)
+    public function setPort(int $port): Tunnel
     {
         $this->port = $port;
 
@@ -123,7 +123,7 @@ class Tunnel
      *
      * @return int
      */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
@@ -135,14 +135,20 @@ class Tunnel
      *
      * @return $this
      */
-    public function setCredentials($credentials)
+    public function setCredentials(array $credentials): Tunnel
     {
         $this->credentials = $credentials;
 
         return $this;
     }
 
-    public function setKeyFile($keyFile)
+    /**
+     * Set the key file.
+     *
+     * @param string $keyFile
+     * @return $this
+     */
+    public function setKeyFile(string $keyFile): Tunnel
     {
         $this->keyFile = $keyFile;
 
@@ -154,7 +160,7 @@ class Tunnel
      *
      * @return string
      */
-    public function buildCommand()
+    public function buildCommand(): string
     {
         $command = $this->action.' '.static::ARG_PORT.' '.$this->port.' ';
 
@@ -180,7 +186,7 @@ class Tunnel
      *
      * @return TerminalCommand
      */
-    public function connect()
+    public function connect(): TerminalCommand
     {
         return new TerminalCommand($this->buildCommand());
     }

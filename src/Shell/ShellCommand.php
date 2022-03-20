@@ -2,7 +2,7 @@
 
 namespace TaylorNetwork\Console\ServerConnector\Shell;
 
-class ShellCommand
+class ShellCommand extends Command
 {
     /**
      * Returned from running exec.
@@ -10,13 +10,6 @@ class ShellCommand
      * @var mixed
      */
     protected $exec;
-
-    /**
-     * Command to run.
-     *
-     * @var string
-     */
-    protected $command;
 
     /**
      * Output from running exec.
@@ -30,40 +23,13 @@ class ShellCommand
      *
      * @var int
      */
-    protected $exitCode;
-
-    /**
-     * ShellCommand constructor.
-     *
-     * @param string $command
-     * @param bool   $defer
-     */
-    public function __construct($command, $defer = false)
-    {
-        $this->command = $command;
-
-        if (!$defer) {
-            $this->execute();
-        }
-    }
+    protected int $exitCode;
 
     /**
      * Execute the command.
      */
-    public function execute()
+    public function execute(): void
     {
         $this->exec = exec($this->command, $this->output, $this->exitCode);
-    }
-
-    /**
-     * Get a property.
-     *
-     * @param string $property
-     *
-     * @return mixed
-     */
-    public function __get($property)
-    {
-        return $this->$property;
     }
 }

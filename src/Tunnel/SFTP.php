@@ -12,5 +12,5 @@ class SFTP extends Tunnel
     /**
      * {@inheritdoc}
      */
-    public $action = 'sftp';
+    public string $action = 'sftp';
 }

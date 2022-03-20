@@ -2,8 +2,8 @@
     "name": "taylornetwork/server-connector",
     "require": {
         "symfony/console": "^4.0",
-        "php": ">=7.0.0",
-        "adbario/php-dot-notation": "^2.0"
+        "php": "^7.4|^8.0",
+        "pharaonic/php-dot-array": "^1.0"
     },
     "require-dev": {
         "psy/psysh": "@stable"

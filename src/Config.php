@@ -2,23 +2,23 @@
 
 namespace TaylorNetwork\Console\ServerConnector;
 
-use Adbar\Dot;
+use Pharaonic\DotArray\DotArray;
 
 class Config
 {
     const LOCAL_CONFIG_PATH = '{HOME}/ServerConnector/config';
 
     /**
-     * @var Dot
+     * @var DotArray
      */
-    protected $config;
+    protected DotArray $config;
 
     /**
      * Config constructor.
      */
     public function __construct()
     {
-        $this->config = new Dot(include __DIR__.'/config/config.php');
+        $this->config = new DotArray(include __DIR__.'/config/config.php');
     }
 
     /**
@@ -26,7 +26,7 @@ class Config
      *
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return $this->config->all();
     }
@@ -40,7 +40,7 @@ class Config
      *
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         if ($value = $this->config->get($key)) {
             return $value;
@@ -64,7 +64,7 @@ class Config
                 return $results;
             }
 
-            return (new Dot($results))->get(str_replace($parent.'.'.$alias.'.', '', $key));
+            return (new DotArray($results))->get(str_replace($parent.'.'.$alias.'.', '', $key));
         }
     }
 
@@ -76,7 +76,7 @@ class Config
      *
      * @return mixed
      */
-    public function searchByAlias($parent, $alias)
+    public function searchByAlias(string $parent, string $alias)
     {
         $parent = $this->config->get($parent);
 
@@ -87,19 +87,26 @@ class Config
                 }
             }
         }
+
+        return null;
     }
 
     /**
-     * Return the config Adbar\Dot object.
+     * Return the config DotArray object.
      *
-     * @return Dot
+     * @return DotArray
      */
-    public function config()
+    public function config(): DotArray
     {
         return $this->config;
     }
 
-    public static function publish()
+    /**
+     * Publish the config to local path.
+     *
+     * @return void
+     */
+    public static function publish(): void
     {
         $destination = self::getLocalConfigPath();
 
@@ -111,7 +118,12 @@ class Config
         copy(__DIR__.'/config/defaults.example.php', $destination.'/defaults.php');
     }
 
-    public static function getLocalConfigPath()
+    /**
+     * Get local config path.
+     *
+     * @return string
+     */
+    public static function getLocalConfigPath(): string
     {
         return str_replace('{HOME}', getenv('HOME'), self::LOCAL_CONFIG_PATH);
     }

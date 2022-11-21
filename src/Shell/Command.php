@@ -23,7 +23,7 @@ abstract class Command implements CommandContract
      * Command contructor.
      *
      * @param string $command
-     * @param bool $defer
+     * @param bool   $defer
      */
     public function __construct(string $command, bool $defer = false)
     {
@@ -31,13 +31,13 @@ abstract class Command implements CommandContract
 
         $this->command = '';
 
-        if($before = implode(';', $this->config->get('defaults.connect_hooks.before') ?? [])) {
+        if ($before = implode(';', $this->config->get('defaults.connect_hooks.before') ?? [])) {
             $this->command .= $before.';';
         }
 
         $this->command .= $command;
 
-        if($after = implode(';', $this->config->get('defaults.connect_hooks.after') ?? [])) {
+        if ($after = implode(';', $this->config->get('defaults.connect_hooks.after') ?? [])) {
             $this->command .= ';'.$after;
         }
 
@@ -50,11 +50,11 @@ abstract class Command implements CommandContract
      * __get.
      *
      * @param string $property
+     *
      * @return mixed
      */
     public function __get(string $property)
     {
         return $this->$property;
     }
-
 }

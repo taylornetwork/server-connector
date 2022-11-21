@@ -8,7 +8,7 @@ interface CommandContract
      * Command constructor.
      *
      * @param string $command
-     * @param bool $defer
+     * @param bool   $defer
      */
     public function __construct(string $command, bool $defer = false);
 
@@ -23,6 +23,7 @@ interface CommandContract
      * __get.
      *
      * @param string $property
+     *
      * @return mixed
      */
     public function __get(string $property);

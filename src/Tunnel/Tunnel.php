@@ -55,7 +55,7 @@ class Tunnel
      * Tunnel constructor.
      *
      * @param string|null $url
-     * @param array  $credentials
+     * @param array       $credentials
      */
     public function __construct(?string $url = null, array $credentials = [])
     {
@@ -146,6 +146,7 @@ class Tunnel
      * Set the key file.
      *
      * @param string $keyFile
+     *
      * @return $this
      */
     public function setKeyFile(string $keyFile): Tunnel

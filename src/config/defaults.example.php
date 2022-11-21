@@ -6,7 +6,7 @@ return [
 
     'connect_hooks' => [
         'before' => [],
-        'after' => [],
-    ]
+        'after'  => [],
+    ],
 
 ];
